@@ -7,8 +7,6 @@ This version includes dynamic port range scanning, making it more flexible and c
 
 ## 🧠 Description
 
-## 🧠 Description
-
 This tool allows users to scan a target (IP or domain) across a custom range of ports to identify open services.
 
 It simulates a basic reconnaissance phase used in cybersecurity and penetration testing.
