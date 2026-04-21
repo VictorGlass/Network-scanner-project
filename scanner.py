@@ -2,56 +2,49 @@
 # Esta libreria permite trabajar con redes (conexiones, puertos, IPs)
 import socket
 
-# -----------------------
-# Resolver dominio -> IP
-# -----------------------
+# --------------------------------
+# FUNCION: Resolver dominio -> IP.
+# --------------------------------
 
 # Funcion
 def resolve_target(target):
+    '''
+    Convierte un dominio (ej: google.com) a IP.
+    '''
     try:
-        # gethostbyname convertira dominio -> IP
         ip = socket.gethostbyname(target)
         return ip
-
     except socket.gaierror:
         print("[!] Invalid target")
         return None
 
 
 
-# -----------------------
-# Escaneo de puertos
-# -----------------------
+# ----------------------------------
+# FUNCION: Escaneo rangos de puertos
+# ----------------------------------
 
 # Funcion
-def scan_target(target):
+def scan_ports(target, start_port, end_port):
 
-    # Diccionario de puertos comunes y su servicio
-    common_ports = {
-        21: "FTP",
-        22: "SSH",
-        23: "Telnet",
-        80: "HTTP",
-        443: "HTTPS",
-        445: "SMB",
-        3389: "RDP"
-    }
+    '''
+    Escanea un rango de puertos en el target.
+    '''
 
-    print("\n[+] Scanning {target}\n")  
+    print("\n[+] Scanning {target} from port {start_port} to {end_port}\n")  
 
     open_ports = 0
 
-    # Hay que iterar sobre los puertos del diccionario
-    for port, service in common_ports.items():
+    # Iteramos sobre el rango de puertos.
+    for port in range(start_port, end_port + 1):
 
         try:
             # Creamos un socket TCP
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            # Tiempo maximo de espera (1 segundo)
-            sock.settimeout(1)
+            # Tiempo maximo de espera (0.5 segundo)
+            sock.settimeout(0.5)
 
-            # connect_ex intenta conectarse al puerto
-            # devuelve 0 si esta abierto
+            # Intentamos conexion.
             result = sock.connect_ex((target, port))
 
 
@@ -61,23 +54,13 @@ def scan_target(target):
                 open_ports += 1
 
 
-                # Detectaremos servicios inseguros
-                if port == 21:
-                    print("FTP is insecure")
-                elif port == 23:
-                    print("Tenet is insecure")
-                elif port == 445:
-                    print("SMB exposed")
-                elif port == 3389:
-                    print("RDP exposed")
-            
             # Cerramos conexion siempre
             sock.close()
         
         except Exception as e:
             print(f"Error on port {port}: {e}")
     
-    print(f"\n[+] Open ports found: {open_ports}")
+    print(f"\n[+] Total open ports: {open_ports}")
     print("[+] Scan complete\n")
 
 
@@ -88,12 +71,22 @@ def scan_target(target):
 
 if __name__ == "__main__":
 
-    # Peddimos al usuario el objetivo
+    # Pedimos al usuario el objetivo
     target_input = input("Enter target (IP or domain): ")
 
     # Convertimos a IP
     target = resolve_target(target_input)
 
-    # Si la IP es valida, escaneamos
     if target:
-        scan_target(target)
+        try:
+            # Pedimos rango de puertos.
+            start_port = int(input("Enter start port: "))
+            end_port = int(input("Enter end port: "))
+
+            # Ejecutamos escaneo.
+            scan_ports(target, start_port, end_port)
+
+        except ValueError:
+            print("[!] Please enter valid port numbers")
+
+
