@@ -50,7 +50,7 @@ def scan_ports(target, start_port, end_port):
 
             # Si el puerto esta abierto
             if result == 0:
-                print(f"[Open] {port} ({service})")
+                print(f"[Open] {port} ({port})")
                 open_ports += 1
 
 
