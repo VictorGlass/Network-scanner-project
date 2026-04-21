@@ -1,24 +1,25 @@
 # 🔍 Network Recon & Vulnerability Scanner
 
-A Python-based tool designed to perform basic network reconnaissance by scanning a target system, identifying open TCP ports, detecting running services, and highlighting potential security risks.
+A Python-based tool designed to perform network reconnaissance by scanning a target system and identifying open TCP ports.
 
-This project simulates an initial phase of penetration testing and cybersecurity analysis.
+This version includes dynamic port range scanning, making it more flexible and closer to real-world usage.
 
 
 ## 🧠 Description
 
-This tool scans a target (IP or domain) to discover open ports and identify associated services such as HTTP, SSH, and FTP.
+## 🧠 Description
 
-It also highlights potentially insecure services that may expose systems to common attacks, helping understand real-world security risks.
+This tool allows users to scan a target (IP or domain) across a custom range of ports to identify open services.
+
+It simulates a basic reconnaissance phase used in cybersecurity and penetration testing.
 
 
 ## 🚀 Features
 
-- TCP port scanning
-- Service identification (HTTP, SSH, FTP, etc.)
-- Detection of insecure services
-- Timeout handling for efficient scanning
-- Clean and readable output
+- Scan custom port ranges
+- Identify open TCP ports
+- Fast scanning using timeout control
+- Clean add readable output
 
 
 ## 🛠 Technologies
@@ -33,11 +34,18 @@ It also highlights potentially insecure services that may expose systems to comm
 python scanner.py
 ````
 
-## 📊 Example Output
+## 📊 Example
 
 ````
-[+] Scanning target: scanme.nmap.org
+[+] Enter target: scanme.nmap.org
 
+[+] Enter start port: 20
+[+] Enter end port: 100
+
+````
+
+## 📊 Example Output
+````
 [OPEN] Port 22 (SSH)
 [OPEN] Port 80 (HTTP)
 
@@ -45,24 +53,15 @@ python scanner.py
 [+] Scan complete
 ````
 
-## 🔐 Security Insights
-
-The scanner highlights common insecure services:
-
- - FTP (21) → Unencrypted credentials
- - Telnet (23) → Plaintext communication
- - SMB (445) → Lateral movement risk
- - RDP (3389) → Brute-force attack exposure
-
 ## 🎯 Learning Outcome
 
 Through this project, I developed:
 
- - Understanding of TCP port scanning
- - Basic network reconnaissance techniques
- - Practical use of Python sockets
- - Identification of exposed services and risks
- - Error handling and timeout management
+ - TCP port scanning techniques
+ - BNetwork reconnaissance basics
+ - Using Python sockets
+ - Handling user input and validation
+ - Improving scripts with dynamic functionality
 
 ## ⚠️ Ethical Use
 This tool is intended for educational purposes only.
